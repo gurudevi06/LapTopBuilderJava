@@ -45,25 +45,25 @@ public class LaptopBuilder {
 
   static int executeProChoice(String pro) {
     if (pro.equals("i3")) {
-      return 800;
+      return 400;
     }
     if (pro.equals("i5")) {
-      return 1000;
+      return 500;
     }
     if (pro.equals("i7")) {
-      return 1500;
+      return 600;
     }
     return 0;
   }
 
-  static int executeDiscountRate(c) {
-    if (c.equals("A001")) {
+  static int getDiscountRate(String x) {
+    if (x.equals("A1")) {
       return 10;
     }
-    if (c.equals("A002")) {
+    if (x.equals("A2")) {
       return 20;
     }
-    if (c.equals("A003")) {
+    if (x.equals("A3")) {
       return 30;
     }
     return 0;
@@ -72,13 +72,12 @@ public class LaptopBuilder {
   public static void main(String args[]) {
 
     int totalPrice = 1500;
-    // 1. Choosing Screen
+    System.out.println("Please Start Customizing Your Latitude (Base Price RM1500) :");
+    //////// 1. Choosing Screen////////////////////
     String[] screenOpt = { "1080p", "4K", "Touchscreen" };
 
     int screenPrice = 0;
     Scanner userInput1 = new Scanner(System.in);
-
-    System.out.println("Please Start Customizing Your Latitude (Base Price RM1500) :");
 
     System.out.println("Please Choose Your Display :");
 
@@ -134,13 +133,13 @@ public class LaptopBuilder {
     System.out.println("Adding on RM " + hddPrice + " to the Base Price");
     ////////////// End of Choosing HDD///////////////
 
-    // 4. Choosing Processor
+    ///////// 4. Choosing Processor ////////////
     String[] proOpt = { "i3", "i5", "i7" };
 
     int proPrice = 0;
     Scanner userInput4 = new Scanner(System.in);
 
-    System.out.println("Please Choose Your Processor:");
+    System.out.println("Please Choose Your Processor :");
 
     for (int i = 0; i < proOpt.length; i++) {
       System.out.println(i + " . " + proOpt[i]);
@@ -148,36 +147,38 @@ public class LaptopBuilder {
 
     Integer proIndex = Integer.parseInt(userInput4.nextLine());
 
-    System.out.println("You have chosen :" + proOpt[proIndex]);
+    System.out.println("You have chosen :" + proOpt[hddIndex]);
     proPrice = executeProChoice(proOpt[proIndex]);
 
     System.out.println("Adding on RM " + proPrice + " to the Base Price");
-    /// End of Choosing Processor
+    ////////// End of Choosing Processor//////////////////////////
 
     /// Calculate Total Price
     totalPrice = totalPrice + screenPrice + ramPrice + hddPrice + proPrice;
     System.out.println("Total Price is RM " + totalPrice);
+    /////////
 
+    ////////////// Enter Coupon Code & Calculate Discounted price //////////////
+    String[] couponCode = { "A1", "A2", "A3" };
+
+    int discountRate = 0;
+    Scanner couponEntered = new Scanner(System.in);
+
+    System.out.println("Please Enter Coupon Code if there is any :");
+    String x = couponEntered.nextLine();
+
+    for (int i = 0; i < couponCode.length; i++) {
+      System.out.println(i + " . " + couponCode[i]);
+    }
+
+    discountRate = getDiscountRate(x);
+    System.out.println("Your are entitled for :" + discountRate + " % Discount");
+
+    totalPrice = totalPrice - (totalPrice * discountRate);
     //// Enter Coupon Code
-    // String[] couOpt = { "A001", "A002", "A003" };
-
-    // int discountRate = 0;
-    // Scanner userInput5 = new Scanner(System.in);
-
-    // System.out.println("Please Enter Coupon Code if any:");
-
-    // for (int i = 0; i < couOpt.length; i++) {
-    // System.out.println(i + " . " + couOpt[i]);
-    // }
-
-    // String coupon = String.parseInt(userInput5.nextLine());
-
-    // System.out.println("You Entered :" + coupon);
-    // discountRate = executeDiscountRate(couOpt[couIndex]);
-
-    // System.out.println("Discount Rate is : " + proPrice + " %");
-    //// Enter Coupon Code
-
+    System.out.println("Total price after Discount is RM :" + totalPrice);
+    ////////////// End of :Enter Coupon Code & Calculate Discounted
+    ////////////// price////////////// ////////////// //////////////
   }
 
 }
